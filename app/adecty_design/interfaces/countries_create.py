@@ -15,18 +15,41 @@
 #
 
 
+from flask import request
+
 from app.adecty_design.interface import interface
 from app.adecty_design.widgets.header import header_get
+from app.adecty_design.widgets.model_creator import models_creator_get, Field
+from app.adecty_design.widgets.model_creator_post import models_creator_post
+from app.database.models import Country
 
 
-def interface_error_get(text: str) -> str:
-    header = header_get(text=text, back_url='/countries')
+BACK_URL = '/countries/'
+FIELDS = [
+    Field(id='name', name='Country name'),
+    Field(id='icon', name='Country flag'),
+]
 
+
+def interface_countries_create():
+    if request.method == 'POST':
+        return models_creator_post(
+            fields=FIELDS,
+            model=Country(),
+            back_url=BACK_URL,
+        )
+
+    header = header_get(text='Create country', back_url=BACK_URL)
     widgets = [
         header,
     ]
 
+    widgets += models_creator_get(
+        fields=FIELDS,
+    )
+
     interface_html = interface.html_get(
         widgets=widgets,
+        active='countries',
     )
-    return interface_html
+    return interface_html, 200

@@ -15,27 +15,25 @@
 #
 
 
-from adecty_design.widgets.required import Navigation, NavigationItem
+from app.adecty_design.interface import interface
+from app.adecty_design.widgets.header import header_get
+from app.adecty_design.widgets.models_viewer import models_viewer_get
+from app.database.models import Country
 
-from app.adecty_design.functions.icon_get import icon_get
 
+def interface_countries_get() -> str:
+    header = header_get(text='Countries', create_url='/countries/create')
 
-navigation_main = Navigation(
-    items=[
-        NavigationItem(
-            id='campaigns',
-            name='Campaigns',
-            url='/campaigns',
-            icon=icon_get(filename='campaigns.svg'),
-        ),
-        NavigationItem(
-            id='countries',
-            name='Countries',
-            url='/countries',
-            icon=icon_get(filename='countries.svg'),
-        ),
-    ],
-)
-navigation_none = Navigation(
-    items=[],
-)
+    widgets = [
+        header,
+    ]
+
+    widgets += models_viewer_get(
+        models=Country.select(),
+    )
+
+    interface_html = interface.html_get(
+        widgets=widgets,
+        active='countries',
+    )
+    return interface_html

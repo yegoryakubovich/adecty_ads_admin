@@ -19,6 +19,7 @@ from flask import Blueprint, request
 from werkzeug.exceptions import InternalServerError
 
 from app.adecty_design.interfaces.error import interface_error_get
+from app.decorators.admin_get import admin_get
 
 
 blueprint_errors = Blueprint(
@@ -29,6 +30,7 @@ blueprint_errors = Blueprint(
 
 
 @blueprint_errors.app_errorhandler(404)
+@admin_get(not_return=True)
 def errors_404(error: InternalServerError):
     if 'favicon.ico' in request.url:
         return error.get_body()

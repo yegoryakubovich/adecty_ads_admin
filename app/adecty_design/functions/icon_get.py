@@ -15,12 +15,14 @@
 #
 
 
+from adecty_design.properties import Color
 from adecty_design.widgets.icon import Icon
 
 
-def icon_get(filename: str) -> Icon:
+def icon_get(filename: str, color: Color = None) -> Icon:
     return Icon(
         path=f'app/adecty_design/icons/{filename}'.format(
             filename=filename,
         ),
+        color=color,
     )

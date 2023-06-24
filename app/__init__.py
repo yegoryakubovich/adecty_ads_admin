@@ -22,7 +22,7 @@ from app.flask import before_request, teardown_request
 from config import SETTINGS_KEY
 
 
-def app_create():
+def app_create() -> Flask:
     models_create()
     app = Flask(import_name=__name__)
     app.secret_key = SETTINGS_KEY

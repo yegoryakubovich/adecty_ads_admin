@@ -15,27 +15,26 @@
 #
 
 
-from adecty_design.widgets.required import Navigation, NavigationItem
+from flask import request
 
-from app.adecty_design.functions.icon_get import icon_get
+from app.adecty_design.widgets.field import Field
 
 
-navigation_main = Navigation(
-    items=[
-        NavigationItem(
-            id='campaigns',
-            name='Campaigns',
-            url='/campaigns',
-            icon=icon_get(filename='campaigns.svg'),
-        ),
-        NavigationItem(
-            id='countries',
-            name='Countries',
-            url='/countries',
-            icon=icon_get(filename='countries.svg'),
-        ),
-    ],
-)
-navigation_none = Navigation(
-    items=[],
-)
+def model_create(fields: list, model):
+    for field in fields:
+        field: Field
+
+        field_id = field.id
+        field_value = request.form.get(field.id)
+        if not field_value:
+            print('ERROR')
+
+        exec(
+            'model.{field_id} = "{field_value}"'.format(
+                field_id=field_id,
+                field_value=field_value,
+            ),
+        )
+
+    model.save()
+    return

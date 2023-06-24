@@ -15,27 +15,16 @@
 #
 
 
-from adecty_design.widgets.required import Navigation, NavigationItem
+from flask import Blueprint
 
-from app.adecty_design.functions.icon_get import icon_get
+from app.blueprints.countries.create import blueprint_countries_create
+from app.blueprints.countries.get import blueprint_countries_get
 
 
-navigation_main = Navigation(
-    items=[
-        NavigationItem(
-            id='campaigns',
-            name='Campaigns',
-            url='/campaigns',
-            icon=icon_get(filename='campaigns.svg'),
-        ),
-        NavigationItem(
-            id='countries',
-            name='Countries',
-            url='/countries',
-            icon=icon_get(filename='countries.svg'),
-        ),
-    ],
+blueprint_countries = Blueprint(
+    name='blueprint_countries',
+    import_name=__name__,
+    url_prefix='/countries'
 )
-navigation_none = Navigation(
-    items=[],
-)
+blueprint_countries.register_blueprint(blueprint=blueprint_countries_get)
+blueprint_countries.register_blueprint(blueprint=blueprint_countries_create)

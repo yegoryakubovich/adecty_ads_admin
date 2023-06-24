@@ -19,8 +19,8 @@ from flask import Blueprint
 
 from app.adecty_design.interfaces.main import interface_main_get
 from app.blueprints.account import blueprint_account
+from app.blueprints.countries import blueprint_countries
 from app.blueprints.errors import blueprint_errors
-from app.blueprints.test import blueprint_test
 from app.decorators.admin_get import admin_get
 
 
@@ -31,7 +31,7 @@ blueprint_main = Blueprint(
 )
 blueprint_main.register_blueprint(blueprint=blueprint_errors)
 blueprint_main.register_blueprint(blueprint=blueprint_account)
-blueprint_main.register_blueprint(blueprint=blueprint_test)
+blueprint_main.register_blueprint(blueprint=blueprint_countries)
 
 
 @blueprint_main.route(rule='/', endpoint='main_get', methods=('GET', ))

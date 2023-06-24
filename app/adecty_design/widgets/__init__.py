@@ -13,29 +13,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
-from adecty_design.widgets.required import Navigation, NavigationItem
-
-from app.adecty_design.functions.icon_get import icon_get
-
-
-navigation_main = Navigation(
-    items=[
-        NavigationItem(
-            id='campaigns',
-            name='Campaigns',
-            url='/campaigns',
-            icon=icon_get(filename='campaigns.svg'),
-        ),
-        NavigationItem(
-            id='countries',
-            name='Countries',
-            url='/countries',
-            icon=icon_get(filename='countries.svg'),
-        ),
-    ],
-)
-navigation_none = Navigation(
-    items=[],
-)

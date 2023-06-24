@@ -15,27 +15,11 @@
 #
 
 
-from adecty_design.widgets.required import Navigation, NavigationItem
+from flask import redirect
 
-from app.adecty_design.functions.icon_get import icon_get
+from app.adecty_design.functions.model_create import model_create
 
 
-navigation_main = Navigation(
-    items=[
-        NavigationItem(
-            id='campaigns',
-            name='Campaigns',
-            url='/campaigns',
-            icon=icon_get(filename='campaigns.svg'),
-        ),
-        NavigationItem(
-            id='countries',
-            name='Countries',
-            url='/countries',
-            icon=icon_get(filename='countries.svg'),
-        ),
-    ],
-)
-navigation_none = Navigation(
-    items=[],
-)
+def models_creator_post(fields: list, model, back_url: str = '/'):
+    model_create(fields=fields, model=model)
+    return redirect(location=back_url), 302

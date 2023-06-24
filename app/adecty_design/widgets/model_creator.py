@@ -15,27 +15,27 @@
 #
 
 
-from adecty_design.widgets.required import Navigation, NavigationItem
+from adecty_design.properties import Margin
+from adecty_design.widgets import InputButton, Form
 
-from app.adecty_design.functions.icon_get import icon_get
+from app.adecty_design.widgets.field import Field
 
 
-navigation_main = Navigation(
-    items=[
-        NavigationItem(
-            id='campaigns',
-            name='Campaigns',
-            url='/campaigns',
-            icon=icon_get(filename='campaigns.svg'),
+def models_creator_get(fields: list):
+    form_widgets = []
+
+    for field in fields:
+        field: Field
+        form_widgets += field.widgets_get()
+
+    form_widgets += [
+        InputButton(text='Create', margin=Margin(top=12)),
+    ]
+
+    widgets = [
+        Form(
+            widgets=form_widgets,
         ),
-        NavigationItem(
-            id='countries',
-            name='Countries',
-            url='/countries',
-            icon=icon_get(filename='countries.svg'),
-        ),
-    ],
-)
-navigation_none = Navigation(
-    items=[],
-)
+    ]
+
+    return widgets

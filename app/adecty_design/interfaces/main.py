@@ -21,7 +21,7 @@ from adecty_design.widgets import Text
 from app.adecty_design.interface import interface
 
 
-def interface_main_get():
+def interface_main_get() -> list:
     widgets = [
         Text(
             text='Main page',
