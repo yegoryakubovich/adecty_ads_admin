@@ -15,26 +15,23 @@
 #
 
 
-from flask import request
+from flask import Blueprint
 
-from app.adecty_design.widgets.field import Field
+from app.adecty_design.interfaces.country_delete import interface_country_delete
+from app.database.models import Country
+from app.decorators.admin_get import admin_get
 
 
-def model_create(fields: list, model):
-    for field in fields:
-        field: Field
+blueprint_country_delete = Blueprint(
+    name='blueprint_country_delete',
+    import_name=__name__,
+    url_prefix='/delete',
+)
 
-        field_id = field.id
-        field_value = request.form.get(field.id)
-        if not field_value:
-            print('ERROR')
 
-        exec(
-            'model.{field_id} = "{field_value}"'.format(
-                field_id=field_id,
-                field_value=field_value,
-            ),
-        )
-
-    model.save()
-    return
+@blueprint_country_delete.route(rule='/', methods=('GET', 'POST'))
+@admin_get(not_return=True)
+def route(id: int):
+    country = Country.get_by_id(id)
+    interface = interface_country_delete(country=country)
+    return interface

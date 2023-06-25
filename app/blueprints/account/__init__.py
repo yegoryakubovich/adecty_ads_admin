@@ -21,7 +21,7 @@ from flask import Blueprint, request, redirect
 blueprint_account = Blueprint(
     name='blueprint_account',
     import_name=__name__,
-    url_prefix='/account'
+    url_prefix='/account',
 )
 
 

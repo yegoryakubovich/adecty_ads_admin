@@ -19,34 +19,27 @@ from flask import request
 
 from app.adecty_design.interface import interface
 from app.adecty_design.widgets.header import header_get
-from app.adecty_design.widgets.model_creator_get import models_creator_get, Field
-from app.adecty_design.widgets.model_creator_post import models_creator_post
+from app.adecty_design.widgets.model_deleter_get import model_deleter_get
+from app.adecty_design.widgets.model_deleter_post import model_deleter_post
 from app.database.models import Country
 
 
 URL_BACK = '/countries/'
-FIELDS = [
-    Field(id='name', name='Country name'),
-    Field(id='icon', name='Country flag'),
-]
 
 
-def interface_countries_create():
+def interface_country_delete(country: Country):
     if request.method == 'POST':
-        return models_creator_post(
-            fields=FIELDS,
-            model=Country(),
+        return model_deleter_post(
+            model=country,
             url_back=URL_BACK,
         )
 
-    header = header_get(text='Create country', url_back=URL_BACK)
+    header = header_get(text='Delete country', url_back=URL_BACK)
     widgets = [
         header,
     ]
 
-    widgets += models_creator_get(
-        fields=FIELDS,
-    )
+    widgets += model_deleter_get(url_back=URL_BACK)
 
     interface_html = interface.html_get(
         widgets=widgets,

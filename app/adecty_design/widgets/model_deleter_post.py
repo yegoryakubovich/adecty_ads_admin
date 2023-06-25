@@ -15,24 +15,10 @@
 #
 
 
-from flask import redirect, request
+from flask import redirect
+from peewee import Model
 
-from app.adecty_design.widgets.field import Field
 
-
-def models_creator_post(fields: list[Field], model, url_back: str = '/'):
-    for field in fields:
-        field_id = field.id
-        field_value = request.form.get(field.id)
-        if not field_value:
-            print('ERROR')
-
-        exec(
-            'model.{field_id} = "{field_value}"'.format(
-                field_id=field_id,
-                field_value=field_value,
-            ),
-        )
-
-    model.save()
+def model_deleter_post(model: Model, url_back: str = '/'):
+    model.delete_instance()
     return redirect(location=url_back), 302

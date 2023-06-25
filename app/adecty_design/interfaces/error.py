@@ -20,7 +20,7 @@ from app.adecty_design.widgets.header import header_get
 
 
 def interface_error_get(text: str) -> str:
-    header = header_get(text=text, back_url='/countries')
+    header = header_get(text=text, url_back='/countries')
 
     widgets = [
         header,

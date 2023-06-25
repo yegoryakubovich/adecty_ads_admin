@@ -27,7 +27,7 @@ from app.decorators.admin_get import admin_get
 blueprint_main = Blueprint(
     name='blueprint_main',
     import_name=__name__,
-    url_prefix='/'
+    url_prefix='/',
 )
 blueprint_main.register_blueprint(blueprint=blueprint_errors)
 blueprint_main.register_blueprint(blueprint=blueprint_account)

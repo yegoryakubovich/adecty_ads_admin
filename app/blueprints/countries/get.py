@@ -24,7 +24,7 @@ from app.decorators.admin_get import admin_get
 blueprint_countries_get = Blueprint(
     name='blueprint_countries_get',
     import_name=__name__,
-    url_prefix='/'
+    url_prefix='/',
 )
 
 

@@ -15,24 +15,17 @@
 #
 
 
-from flask import redirect, request
-
-from app.adecty_design.widgets.field import Field
+from app.adecty_design.widgets.action import Action
 
 
-def models_creator_post(fields: list[Field], model, url_back: str = '/'):
-    for field in fields:
-        field_id = field.id
-        field_value = request.form.get(field.id)
-        if not field_value:
-            print('ERROR')
+class Unit:
+    id: str | None
+    name: str | None
+    parameters: dict | None
+    actions: list[Action] | None
 
-        exec(
-            'model.{field_id} = "{field_value}"'.format(
-                field_id=field_id,
-                field_value=field_value,
-            ),
-        )
-
-    model.save()
-    return redirect(location=url_back), 302
+    def __init__(self, id: str = None, name: str = None, parameters: dict = None, actions: list[Action] = None):
+        self.id = id
+        self.name = name
+        self.parameters = parameters
+        self.actions = actions

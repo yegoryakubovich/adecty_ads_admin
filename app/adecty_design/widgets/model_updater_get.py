@@ -15,24 +15,27 @@
 #
 
 
-from flask import redirect, request
+from adecty_design.properties import Margin
+from adecty_design.widgets import InputButton, Form
 
 from app.adecty_design.widgets.field import Field
 
 
-def models_creator_post(fields: list[Field], model, url_back: str = '/'):
+def models_updator_get(fields: list):
+    form_widgets = []
+
     for field in fields:
-        field_id = field.id
-        field_value = request.form.get(field.id)
-        if not field_value:
-            print('ERROR')
+        field: Field
+        form_widgets += field.widgets_get()
 
-        exec(
-            'model.{field_id} = "{field_value}"'.format(
-                field_id=field_id,
-                field_value=field_value,
-            ),
-        )
+    form_widgets += [
+        InputButton(text='Update', margin=Margin(top=12)),
+    ]
 
-    model.save()
-    return redirect(location=url_back), 302
+    widgets = [
+        Form(
+            widgets=form_widgets,
+        ),
+    ]
+
+    return widgets

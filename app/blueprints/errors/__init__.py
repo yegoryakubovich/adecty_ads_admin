@@ -25,7 +25,7 @@ from app.decorators.admin_get import admin_get
 blueprint_errors = Blueprint(
     name='blueprint_errors',
     import_name=__name__,
-    url_prefix='/'
+    url_prefix='/',
 )
 
 

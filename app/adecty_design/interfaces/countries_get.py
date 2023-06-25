@@ -16,8 +16,10 @@
 
 
 from app.adecty_design.interface import interface
+from app.adecty_design.widgets.action import Action
 from app.adecty_design.widgets.header import header_get
-from app.adecty_design.widgets.models_viewer import models_viewer_get
+from app.adecty_design.widgets.models_viewer_get import models_viewer_get
+from app.adecty_design.widgets.unit import Unit
 from app.database.models import Country
 
 
@@ -29,7 +31,36 @@ def interface_countries_get() -> str:
     ]
 
     widgets += models_viewer_get(
-        models=Country.select(),
+        units=[
+            Unit(
+                id=country.id,
+                name='{icon} {name}'.format(
+                    icon=country.icon,
+                    name=country.name,
+                ),
+                parameters={
+                    'Name': country.name,
+                    'Icon': country.icon,
+                },
+                actions=[
+                    Action(
+                        name='Update',
+                        icon='update.svg',
+                        url='/countries/{id}/update'.format(
+                            id=country.id,
+                        ),
+                    ),
+                    Action(
+                        name='Delete',
+                        icon='delete.svg',
+                        url='/countries/{id}/delete'.format(
+                            id=country.id,
+                        ),
+                    ),
+                ],
+            )
+            for country in Country.select()
+        ],
     )
 
     interface_html = interface.html_get(

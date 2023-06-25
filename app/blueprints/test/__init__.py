@@ -21,7 +21,7 @@ from flask import Blueprint
 blueprint_test = Blueprint(
     name='blueprint_test',
     import_name=__name__,
-    url_prefix='/test'
+    url_prefix='/test',
 )
 
 

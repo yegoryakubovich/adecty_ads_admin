@@ -19,12 +19,14 @@ from flask import Blueprint
 
 from app.blueprints.countries.create import blueprint_countries_create
 from app.blueprints.countries.get import blueprint_countries_get
+from app.blueprints.countries.unit import blueprint_country
 
 
 blueprint_countries = Blueprint(
     name='blueprint_countries',
     import_name=__name__,
-    url_prefix='/countries'
+    url_prefix='/countries',
 )
 blueprint_countries.register_blueprint(blueprint=blueprint_countries_get)
 blueprint_countries.register_blueprint(blueprint=blueprint_countries_create)
+blueprint_countries.register_blueprint(blueprint=blueprint_country)

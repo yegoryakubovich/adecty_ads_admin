@@ -22,14 +22,14 @@ from app.adecty_design.colors import colors
 from app.adecty_design.functions.icon_get import icon_get
 
 
-def header_get(text: str, back_url: str = None, create_url: str = None):
+def header_get(text: str, url_back: str = None, create_url: str = None):
     header_widgets = []
 
-    if back_url:
+    if url_back:
         header_widgets += [
             Button(
                 type=ButtonType.chip,
-                url=back_url,
+                url=url_back,
                 color_background=colors.background,
                 icon=icon_get(filename='back.svg', color=colors.text),
                 margin=Margin(horizontal=0, vertical=0),

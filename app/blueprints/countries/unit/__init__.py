@@ -15,24 +15,15 @@
 #
 
 
-from flask import redirect, request
+from flask import Blueprint
 
-from app.adecty_design.widgets.field import Field
+from app.blueprints.countries.unit.delete import blueprint_country_delete
 
 
-def models_creator_post(fields: list[Field], model, url_back: str = '/'):
-    for field in fields:
-        field_id = field.id
-        field_value = request.form.get(field.id)
-        if not field_value:
-            print('ERROR')
-
-        exec(
-            'model.{field_id} = "{field_value}"'.format(
-                field_id=field_id,
-                field_value=field_value,
-            ),
-        )
-
-    model.save()
-    return redirect(location=url_back), 302
+blueprint_country = Blueprint(
+    name='blueprint_country',
+    import_name=__name__,
+    url_prefix='/<int:id>',
+)
+# blueprint_country.register_blueprint(blueprint=blueprint_country_update)
+blueprint_country.register_blueprint(blueprint=blueprint_country_delete)
