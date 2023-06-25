@@ -35,7 +35,7 @@ class Field:
         self.name = name
         self.value = value
 
-    def widgets_get(self):
+    def widgets_get(self, is_disabled=False, value: str = None):
         widgets = [
             Text(
                 text=self.name,
@@ -51,10 +51,9 @@ class Field:
             widgets += [
                 InputText(
                     id=self.id,
-                    value=self.value,
+                    value=value if value else self.value,
                     margin=Margin(top=6),
-                    is_disabled=True if self
-                    .value else False,
+                    is_disabled=is_disabled,
                 ),
             ]
 

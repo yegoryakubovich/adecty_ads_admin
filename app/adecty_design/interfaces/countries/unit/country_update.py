@@ -18,9 +18,10 @@
 from flask import request
 
 from app.adecty_design.interface import interface
+from app.adecty_design.widgets.field import Field
 from app.adecty_design.widgets.header import header_get
-from app.adecty_design.widgets.model_creator_get import models_creator_get, Field
-from app.adecty_design.widgets.model_creator_post import models_creator_post
+from app.adecty_design.widgets.model_updater_get import model_updator_get
+from app.adecty_design.widgets.model_updator_post import model_updator_post
 from app.database.models import Country
 
 
@@ -31,21 +32,22 @@ FIELDS = [
 ]
 
 
-def interface_countries_create():
+def interface_country_update(country: Country):
     if request.method == 'POST':
-        return models_creator_post(
+        return model_updator_post(
             fields=FIELDS,
-            model=Country(),
+            model=country,
             url_back=URL_BACK,
         )
 
-    header = header_get(text='Create country', url_back=URL_BACK)
+    header = header_get(text='Update country', url_back=URL_BACK)
     widgets = [
         header,
     ]
 
-    widgets += models_creator_get(
+    widgets += model_updator_get(
         fields=FIELDS,
+        model=country,
     )
 
     interface_html = interface.html_get(

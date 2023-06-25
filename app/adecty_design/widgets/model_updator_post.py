@@ -15,9 +15,22 @@
 #
 
 
-from flask import redirect
+from flask import redirect, request
 
 
-def models_updator_post(fields: list, model, url_back: str = '/'):
-    print(fields, model)
+def model_updator_post(fields: list, model, url_back: str = '/'):
+    for field in fields:
+        field_id = field.id
+        field_value = request.form.get(field.id)
+        if not field_value:
+            print('ERROR')
+
+        exec(
+            'model.{field_id} = "{field_value}"'.format(
+                field_id=field_id,
+                field_value=field_value,
+            ),
+        )
+
+    model.save()
     return redirect(location=url_back), 302

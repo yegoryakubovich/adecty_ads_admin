@@ -17,7 +17,7 @@
 
 from flask import Blueprint
 
-from app.adecty_design.interfaces.countries_create import interface_countries_create
+from app.adecty_design.interfaces.countries.create import interface_countries_create
 from app.decorators.admin_get import admin_get
 
 

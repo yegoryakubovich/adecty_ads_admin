@@ -17,21 +17,21 @@
 
 from flask import Blueprint
 
-from app.adecty_design.interfaces.countries.unit.country_delete import interface_country_delete
+from app.adecty_design.interfaces.countries.unit.country_update import interface_country_update
 from app.database.models import Country
 from app.decorators.admin_get import admin_get
 
 
-blueprint_country_delete = Blueprint(
-    name='blueprint_country_delete',
+blueprint_country_update = Blueprint(
+    name='blueprint_country_update',
     import_name=__name__,
-    url_prefix='/delete',
+    url_prefix='/update',
 )
 
 
-@blueprint_country_delete.route(rule='/', methods=('GET', 'POST'))
+@blueprint_country_update.route(rule='/', methods=('GET', 'POST'))
 @admin_get(not_return=True)
 def route(id: int):
     country = Country.get_by_id(id)
-    interface = interface_country_delete(country=country)
+    interface = interface_country_update(country=country)
     return interface

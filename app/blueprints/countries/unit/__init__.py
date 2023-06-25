@@ -18,6 +18,7 @@
 from flask import Blueprint
 
 from app.blueprints.countries.unit.delete import blueprint_country_delete
+from app.blueprints.countries.unit.update import blueprint_country_update
 
 
 blueprint_country = Blueprint(
@@ -25,5 +26,5 @@ blueprint_country = Blueprint(
     import_name=__name__,
     url_prefix='/<int:id>',
 )
-# blueprint_country.register_blueprint(blueprint=blueprint_country_update)
+blueprint_country.register_blueprint(blueprint=blueprint_country_update)
 blueprint_country.register_blueprint(blueprint=blueprint_country_delete)

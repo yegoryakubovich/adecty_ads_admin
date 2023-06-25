@@ -17,16 +17,23 @@
 
 from adecty_design.properties import Margin
 from adecty_design.widgets import InputButton, Form
+from peewee import Model
 
 from app.adecty_design.widgets.field import Field
 
 
-def models_updator_get(fields: list):
+# noinspection PyUnusedLocal
+def model_updator_get(fields: list[Field], model: Model):
     form_widgets = []
 
     for field in fields:
-        field: Field
-        form_widgets += field.widgets_get()
+        form_widgets += field.widgets_get(
+            value=eval(
+                'model.{id}'.format(
+                    id=field.id,
+                ),
+            )
+        )
 
     form_widgets += [
         InputButton(text='Update', margin=Margin(top=12)),

@@ -13,25 +13,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
-from flask import Blueprint
-
-from app.adecty_design.interfaces.countries.unit.country_delete import interface_country_delete
-from app.database.models import Country
-from app.decorators.admin_get import admin_get
-
-
-blueprint_country_delete = Blueprint(
-    name='blueprint_country_delete',
-    import_name=__name__,
-    url_prefix='/delete',
-)
-
-
-@blueprint_country_delete.route(rule='/', methods=('GET', 'POST'))
-@admin_get(not_return=True)
-def route(id: int):
-    country = Country.get_by_id(id)
-    interface = interface_country_delete(country=country)
-    return interface
